@@ -17,7 +17,7 @@ class CreateChargesService {
 
   public async execute({ latitude, longitude }: IRequest): Promise<Charge> {
     const charge = await this.chargesRepository.create({
-      value: latitude * longitude * 100,
+      value: latitude * longitude * 1000,
     });
 
     return charge;
