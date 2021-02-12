@@ -4,8 +4,9 @@ import Rating from '@modules/ratings/infra/typeorm/entities/Rating';
 import IRatingsRepository from '../repositories/IRatingsRepository';
 
 interface IRequest {
-  latitude: number;
-  longitude: number;
+  user_id: string;
+  couch_id: string;
+  rating: number;
 }
 
 @injectable()
@@ -15,10 +16,8 @@ class CreateRatingsService {
     private ratingsRepository: IRatingsRepository,
   ) {}
 
-  public async execute({ latitude, longitude }: IRequest): Promise<Rating> {
-    const rating = await this.ratingsRepository.create({
-      value: latitude * longitude * 1000,
-    });
+  public async execute(data: IRequest): Promise<Rating> {
+    const rating = await this.ratingsRepository.create(data);
 
     return rating;
   }

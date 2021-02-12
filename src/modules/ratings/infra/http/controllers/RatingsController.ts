@@ -28,28 +28,35 @@ export default class RatingsController {
   }
 
   public async create(request: Request, response: Response): Promise<Response> {
-    const { latitude, longitude } = request.body;
+    const { user } = request;
+    const { couch_id, rating } = request.body;
 
     const createRating = container.resolve(CreateRatingsService);
 
-    const rating = await createRating.execute({ latitude, longitude });
+    const newRating = await createRating.execute({
+      user_id: user.id,
+      couch_id,
+      rating,
+    });
 
-    return response.json(classToClass(rating));
+    return response.json(classToClass(newRating));
   }
 
   public async update(request: Request, response: Response): Promise<Response> {
     const { rating_id } = request.params;
-    const { latitude, longitude } = request.body;
+    const { user } = request;
+    const { couch_id, rating } = request.body;
 
     const updateRating = container.resolve(UpdateRatingsService);
 
-    const rating = await updateRating.execute({
+    const updatedRating = await updateRating.execute({
+      user_id: user.id,
       rating_id,
-      latitude,
-      longitude,
+      couch_id,
+      rating,
     });
 
-    return response.json(classToClass(rating));
+    return response.json(classToClass(updatedRating));
   }
 
   public async destroy(

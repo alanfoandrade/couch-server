@@ -1,7 +1,6 @@
 import { Router } from 'express';
 import { celebrate, Joi, Segments } from 'celebrate';
 
-import ensureAuthenticated from '@modules/users/infra/http/middlewares/ensureAuthenticated';
 import RatingsController from '../controllers/RatingsController';
 
 const ratingsRouter = Router();
@@ -12,7 +11,7 @@ const ratingsController = new RatingsController();
 /**
  * Show all ratings.
  */
-ratingsRouter.get('/', ensureAuthenticated, ratingsController.index);
+ratingsRouter.get('/', ratingsController.index);
 
 // GET: baseURL/ratings/:rating_id
 /**
@@ -25,7 +24,6 @@ ratingsRouter.get(
       rating_id: Joi.string().uuid().required(),
     },
   }),
-  ensureAuthenticated,
   ratingsController.show,
 );
 
@@ -37,11 +35,10 @@ ratingsRouter.post(
   '/',
   celebrate({
     [Segments.BODY]: {
-      latitude: Joi.number().required(),
-      longitude: Joi.number().required(),
+      couch_id: Joi.string().uuid().required(),
+      rating: Joi.number().integer().required(),
     },
   }),
-  ensureAuthenticated,
   ratingsController.create,
 );
 
@@ -56,10 +53,10 @@ ratingsRouter.put(
       rating_id: Joi.string().uuid().required(),
     },
     [Segments.BODY]: {
-      value: Joi.number().required(),
+      couch_id: Joi.string().uuid().required(),
+      rating: Joi.number().integer().required(),
     },
   }),
-  ensureAuthenticated,
   ratingsController.update,
 );
 
@@ -74,7 +71,6 @@ ratingsRouter.delete(
       rating_id: Joi.string().uuid().required(),
     },
   }),
-  ensureAuthenticated,
   ratingsController.destroy,
 );
 

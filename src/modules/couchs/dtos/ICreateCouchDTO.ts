@@ -1,3 +1,7 @@
 export default interface ICreateCouchDTO {
-  value: number;
+  model: string;
+  seaters: number;
+  length: number;
+  height: number;
+  width: number;
 }

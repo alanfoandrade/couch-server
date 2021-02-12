@@ -6,8 +6,11 @@ import ICouchsRepository from '../repositories/ICouchsRepository';
 
 interface IRequest {
   couch_id: string;
-  latitude: number;
-  longitude: number;
+  model: string;
+  seaters: number;
+  length: number;
+  height: number;
+  width: number;
 }
 
 @injectable()
@@ -17,18 +20,14 @@ class CreateCouchsService {
     private couchsRepository: ICouchsRepository,
   ) {}
 
-  public async execute({
-    couch_id,
-    latitude,
-    longitude,
-  }: IRequest): Promise<Couch> {
+  public async execute({ couch_id, ...rest }: IRequest): Promise<Couch> {
     const couch = await this.couchsRepository.findById(couch_id);
 
     if (!couch) {
       throw new AppError('Couch not found');
     }
 
-    couch.value = latitude * longitude * 100;
+    await this.couchsRepository.save({ ...couch, ...rest });
 
     return couch;
   }

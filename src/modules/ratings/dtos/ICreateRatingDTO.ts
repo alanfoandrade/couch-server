@@ -1,3 +1,5 @@
 export default interface ICreateRatingDTO {
-  value: number;
+  user_id: string;
+  couch_id: string;
+  rating: number;
 }

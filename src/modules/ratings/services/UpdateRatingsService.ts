@@ -5,9 +5,10 @@ import AppError from '@shared/errors/AppError';
 import IRatingsRepository from '../repositories/IRatingsRepository';
 
 interface IRequest {
+  user_id: string;
   rating_id: string;
-  latitude: number;
-  longitude: number;
+  couch_id: string;
+  rating: number;
 }
 
 @injectable()
@@ -17,18 +18,14 @@ class CreateRatingsService {
     private ratingsRepository: IRatingsRepository,
   ) {}
 
-  public async execute({
-    rating_id,
-    latitude,
-    longitude,
-  }: IRequest): Promise<Rating> {
+  public async execute({ rating_id, ...rest }: IRequest): Promise<Rating> {
     const rating = await this.ratingsRepository.findById(rating_id);
 
     if (!rating) {
       throw new AppError('Rating not found');
     }
 
-    rating.value = latitude * longitude * 100;
+    await this.ratingsRepository.save({ ...rating, ...rest });
 
     return rating;
   }

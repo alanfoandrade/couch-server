@@ -15,10 +15,10 @@ class User {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column({ type: 'string' })
+  @Column({ type: 'varchar' })
   email: string;
 
-  @Column({ type: 'string' })
+  @Column({ type: 'varchar' })
   @Exclude()
   password: string;
 

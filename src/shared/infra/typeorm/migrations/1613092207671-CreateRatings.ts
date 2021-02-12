@@ -18,6 +18,14 @@ export default class CreateRatings1613092207671 implements MigrationInterface {
             type: 'integer',
           },
           {
+            name: 'user_id',
+            type: 'uuid',
+          },
+          {
+            name: 'couch_id',
+            type: 'uuid',
+          },
+          {
             name: 'created_at',
             type: 'timestamp with time zone',
             default: 'now()',

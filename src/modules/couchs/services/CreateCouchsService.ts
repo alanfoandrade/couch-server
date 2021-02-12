@@ -4,8 +4,11 @@ import Couch from '@modules/couchs/infra/typeorm/entities/Couch';
 import ICouchsRepository from '../repositories/ICouchsRepository';
 
 interface IRequest {
-  latitude: number;
-  longitude: number;
+  model: string;
+  seaters: number;
+  length: number;
+  height: number;
+  width: number;
 }
 
 @injectable()
@@ -15,10 +18,8 @@ class CreateCouchsService {
     private couchsRepository: ICouchsRepository,
   ) {}
 
-  public async execute({ latitude, longitude }: IRequest): Promise<Couch> {
-    const couch = await this.couchsRepository.create({
-      value: latitude * longitude * 1000,
-    });
+  public async execute(data: IRequest): Promise<Couch> {
+    const couch = await this.couchsRepository.create(data);
 
     return couch;
   }

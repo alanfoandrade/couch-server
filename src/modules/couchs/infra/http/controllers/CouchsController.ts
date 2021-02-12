@@ -28,25 +28,34 @@ export default class CouchsController {
   }
 
   public async create(request: Request, response: Response): Promise<Response> {
-    const { latitude, longitude } = request.body;
+    const { model, seaters, length, height, width } = request.body;
 
     const createCouch = container.resolve(CreateCouchsService);
 
-    const couch = await createCouch.execute({ latitude, longitude });
+    const couch = await createCouch.execute({
+      model,
+      seaters,
+      length,
+      height,
+      width,
+    });
 
     return response.json(classToClass(couch));
   }
 
   public async update(request: Request, response: Response): Promise<Response> {
     const { couch_id } = request.params;
-    const { latitude, longitude } = request.body;
+    const { model, seaters, length, height, width } = request.body;
 
     const updateCouch = container.resolve(UpdateCouchsService);
 
     const couch = await updateCouch.execute({
       couch_id,
-      latitude,
-      longitude,
+      model,
+      seaters,
+      length,
+      height,
+      width,
     });
 
     return response.json(classToClass(couch));

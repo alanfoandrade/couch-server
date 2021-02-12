@@ -24,7 +24,6 @@ couchsRouter.get(
       couch_id: Joi.string().uuid().required(),
     },
   }),
-
   couchsController.show,
 );
 
@@ -36,11 +35,13 @@ couchsRouter.post(
   '/',
   celebrate({
     [Segments.BODY]: {
-      latitude: Joi.number().required(),
-      longitude: Joi.number().required(),
+      model: Joi.string().required(),
+      seaters: Joi.number().integer().required(),
+      length: Joi.number().integer().required(),
+      height: Joi.number().integer().required(),
+      width: Joi.number().integer().required(),
     },
   }),
-
   couchsController.create,
 );
 
@@ -55,10 +56,13 @@ couchsRouter.put(
       couch_id: Joi.string().uuid().required(),
     },
     [Segments.BODY]: {
-      value: Joi.number().required(),
+      model: Joi.string().required(),
+      seaters: Joi.number().integer().required(),
+      length: Joi.number().integer().required(),
+      height: Joi.number().integer().required(),
+      width: Joi.number().integer().required(),
     },
   }),
-
   couchsController.update,
 );
 
@@ -73,7 +77,6 @@ couchsRouter.delete(
       couch_id: Joi.string().uuid().required(),
     },
   }),
-
   couchsController.destroy,
 );
 

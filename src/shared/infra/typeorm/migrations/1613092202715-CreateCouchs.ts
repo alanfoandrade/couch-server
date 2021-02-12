@@ -22,7 +22,7 @@ export default class CreateCouchs1613092202715 implements MigrationInterface {
             type: 'integer',
           },
           {
-            name: 'lenght',
+            name: 'length',
             type: 'integer',
           },
           {
