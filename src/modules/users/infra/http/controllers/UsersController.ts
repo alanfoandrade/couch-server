@@ -15,11 +15,12 @@ export default class UsersController {
   }
 
   public async create(request: Request, response: Response): Promise<Response> {
-    const { email, password } = request.body;
+    const { name, email, password } = request.body;
 
     const createUser = container.resolve(CreateUserService);
 
     const user = await createUser.execute({
+      name,
       email,
       password,
     });
