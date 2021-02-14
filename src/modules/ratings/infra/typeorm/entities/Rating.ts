@@ -1,4 +1,3 @@
-import Couch from '@modules/couchs/infra/typeorm/entities/Couch';
 import User from '@modules/users/infra/typeorm/entities/User';
 import {
   Entity,
@@ -27,10 +26,6 @@ class Rating {
 
   @Column('uuid')
   couch_id: string;
-
-  @ManyToOne(() => Couch, (couch) => couch.ratings)
-  @JoinColumn({ name: 'couch_id' })
-  couch: Couch;
 
   @CreateDateColumn()
   created_at: Date;
