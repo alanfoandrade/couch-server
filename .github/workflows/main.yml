@@ -35,7 +35,7 @@ jobs:
 
       # Run build
       - name: Run build
-        run: yarn build
+        run: yarn build & rm -rf src
 
       # Copy code to Digital Ocean
       - name: Copy code to Digital Ocean
