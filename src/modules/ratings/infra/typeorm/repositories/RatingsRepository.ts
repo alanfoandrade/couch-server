@@ -30,7 +30,9 @@ class RatingsRepository implements IRatingsRepository {
 
     await this.ormRepository.save(rating);
 
-    return rating;
+    const newRating = await this.ormRepository.findOne(rating.id);
+
+    return newRating || rating;
   }
 
   public async save(rating: Rating): Promise<Rating> {

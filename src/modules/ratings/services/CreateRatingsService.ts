@@ -21,13 +21,13 @@ class CreateRatingsService {
     user_id,
     rating,
   }: IRequest): Promise<Rating> {
-    const findRating = await this.ratingsRepository.create({
+    const newRating = await this.ratingsRepository.create({
       couch_id,
       user_id,
       rating,
     });
 
-    return findRating;
+    return newRating;
   }
 }
 
