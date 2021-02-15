@@ -20,7 +20,7 @@ class Rating {
   @Column('uuid')
   user_id: string;
 
-  @ManyToOne(() => User, (user) => user.ratings)
+  @ManyToOne(() => User, (user) => user.ratings, { eager: true })
   @JoinColumn({ name: 'user_id' })
   user: User;
 

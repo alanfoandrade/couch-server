@@ -25,9 +25,12 @@ class CreateRatingsService {
       throw new AppError('Rating not found');
     }
 
-    await this.ratingsRepository.save({ ...rating, ...rest });
+    const updatedRating = await this.ratingsRepository.save({
+      ...rating,
+      ...rest,
+    });
 
-    return rating;
+    return updatedRating;
   }
 }
 

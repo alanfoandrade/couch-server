@@ -16,10 +16,18 @@ class CreateRatingsService {
     private ratingsRepository: IRatingsRepository,
   ) {}
 
-  public async execute(data: IRequest): Promise<Rating> {
-    const rating = await this.ratingsRepository.create(data);
+  public async execute({
+    couch_id,
+    user_id,
+    rating,
+  }: IRequest): Promise<Rating> {
+    const findRating = await this.ratingsRepository.create({
+      couch_id,
+      user_id,
+      rating,
+    });
 
-    return rating;
+    return findRating;
   }
 }
 
